@@ -3,6 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getArticleBySlug } from "@/lib/queries/articles";
+import { CommentSection } from "@/components/ui/comment-section";
+import { createClient } from "@/lib/supabase/server";
 
 type ArticlePageProps = {
   params: Promise<{ slug: string }>;
@@ -38,6 +40,23 @@ const ArticlePage = async ({ params }: ArticlePageProps) => {
 
   if (!article) {
     notFound();
+  }
+
+  // Récupérer l'utilisateur connecté pour les commentaires
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  // Récupérer le rôle de l'utilisateur si connecté
+  let currentUserRole: string | null = null;
+  if (user) {
+    const { data: profile } = await supabase
+      .from("user_profiles")
+      .select("role")
+      .eq("id", user.id)
+      .single<{ role: string }>();
+    currentUserRole = profile?.role ?? null;
   }
 
   const author = article.author;
@@ -151,13 +170,12 @@ const ArticlePage = async ({ params }: ArticlePageProps) => {
       {/* Séparateur */}
       <hr className="mb-10 border-white/10" />
 
-      {/* Section commentaires (placeholder pour la Task 11) */}
-      <section>
-        <h2 className="mb-6 text-2xl font-bold text-white">Commentaires</h2>
-        <p className="text-gray-500">
-          La section commentaires arrive bientôt.
-        </p>
-      </section>
+      {/* Section commentaires */}
+      <CommentSection
+        articleId={article.id}
+        currentUserId={user?.id ?? null}
+        currentUserRole={currentUserRole}
+      />
     </article>
   );
 };

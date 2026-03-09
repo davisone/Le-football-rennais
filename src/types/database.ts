@@ -41,6 +41,7 @@ export type Database = {
           topic_count?: number;
           created_at?: string;
         };
+        Relationships: [];
       };
       articles: {
         Row: {
@@ -85,6 +86,15 @@ export type Database = {
           published_at?: string | null;
           created_at?: string;
         };
+        Relationships: [
+          {
+            foreignKeyName: "articles_author_id_fkey";
+            columns: ["author_id"];
+            isOneToOne: false;
+            referencedRelation: "user_profiles";
+            referencedColumns: ["id"];
+          }
+        ];
       };
       comments: {
         Row: {
@@ -111,6 +121,22 @@ export type Database = {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [
+          {
+            foreignKeyName: "comments_article_id_fkey";
+            columns: ["article_id"];
+            isOneToOne: false;
+            referencedRelation: "articles";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "comments_author_id_fkey";
+            columns: ["author_id"];
+            isOneToOne: false;
+            referencedRelation: "user_profiles";
+            referencedColumns: ["id"];
+          }
+        ];
       };
       forum_categories: {
         Row: {
@@ -143,6 +169,7 @@ export type Database = {
           topic_count?: number;
           post_count?: number;
         };
+        Relationships: [];
       };
       forum_topics: {
         Row: {
@@ -184,6 +211,22 @@ export type Database = {
           last_post_at?: string;
           created_at?: string;
         };
+        Relationships: [
+          {
+            foreignKeyName: "forum_topics_category_id_fkey";
+            columns: ["category_id"];
+            isOneToOne: false;
+            referencedRelation: "forum_categories";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "forum_topics_author_id_fkey";
+            columns: ["author_id"];
+            isOneToOne: false;
+            referencedRelation: "user_profiles";
+            referencedColumns: ["id"];
+          }
+        ];
       };
       forum_posts: {
         Row: {
@@ -213,6 +256,22 @@ export type Database = {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [
+          {
+            foreignKeyName: "forum_posts_topic_id_fkey";
+            columns: ["topic_id"];
+            isOneToOne: false;
+            referencedRelation: "forum_topics";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "forum_posts_author_id_fkey";
+            columns: ["author_id"];
+            isOneToOne: false;
+            referencedRelation: "user_profiles";
+            referencedColumns: ["id"];
+          }
+        ];
       };
       badges: {
         Row: {
@@ -239,6 +298,7 @@ export type Database = {
           condition?: string | null;
           created_at?: string;
         };
+        Relationships: [];
       };
       user_badges: {
         Row: {
@@ -256,6 +316,22 @@ export type Database = {
           badge_id?: string;
           awarded_at?: string;
         };
+        Relationships: [
+          {
+            foreignKeyName: "user_badges_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "user_profiles";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "user_badges_badge_id_fkey";
+            columns: ["badge_id"];
+            isOneToOne: false;
+            referencedRelation: "badges";
+            referencedColumns: ["id"];
+          }
+        ];
       };
       newsletter_subscribers: {
         Row: {
@@ -279,6 +355,7 @@ export type Database = {
           created_at?: string;
           unsubscribed_at?: string | null;
         };
+        Relationships: [];
       };
     };
     Views: Record<string, never>;
