@@ -5,7 +5,8 @@ import StarterKit from "@tiptap/starter-kit";
 import ImageExtension from "@tiptap/extension-image";
 import LinkExtension from "@tiptap/extension-link";
 import Placeholder from "@tiptap/extension-placeholder";
-import { useState, useEffect, useRef, useTransition } from "react";
+import { useState, useRef, useTransition } from "react";
+import Link from "next/link";
 import { uploadCoverImage } from "@/lib/actions/articles";
 import type { Tables } from "@/types/database";
 
@@ -67,13 +68,6 @@ export const ArticleEditor = ({ initialData, action }: ArticleEditorProps) => {
     },
     immediatelyRender: false,
   });
-
-  // Auto-génération du slug depuis le titre
-  useEffect(() => {
-    if (!slugTouched) {
-      setSlug(toSlug(title));
-    }
-  }, [title, slugTouched]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -154,7 +148,7 @@ export const ArticleEditor = ({ initialData, action }: ArticleEditorProps) => {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* Retour */}
-      <a
+      <Link
         href="/admin/articles"
         className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-300"
       >
@@ -172,7 +166,7 @@ export const ArticleEditor = ({ initialData, action }: ArticleEditorProps) => {
           />
         </svg>
         Retour aux articles
-      </a>
+      </Link>
 
       {/* Feedback */}
       {error && (
@@ -194,7 +188,10 @@ export const ArticleEditor = ({ initialData, action }: ArticleEditorProps) => {
         <input
           type="text"
           value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={(e) => {
+            setTitle(e.target.value);
+            if (!slugTouched) setSlug(toSlug(e.target.value));
+          }}
           required
           placeholder="Titre de l'article"
           className="w-full rounded-lg border border-white/10 bg-gray-800 px-4 py-2.5 text-white placeholder-gray-500 outline-none transition-colors focus:border-[#E30613] focus:ring-1 focus:ring-[#E30613]"

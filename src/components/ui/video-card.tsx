@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import type { YouTubeVideo } from "@/lib/youtube";
 
 interface VideoCardProps {
@@ -41,11 +42,13 @@ export const VideoCard = ({ video }: VideoCardProps) => {
       onClick={() => setPlaying(true)}
       className="group w-full overflow-hidden rounded-xl border border-white/10 bg-gray-900 text-left transition-colors hover:border-white/20"
     >
-      <div className="relative aspect-video overflow-hidden">
-        <img
+      <div className="relative aspect-video overflow-hidden rounded-t-xl">
+        <Image
           src={thumbnail}
           alt={video.snippet.title}
-          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+          fill
+          className="object-cover transition-transform duration-300 group-hover:scale-105"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         />
         {/* Bouton play */}
         <div className="absolute inset-0 flex items-center justify-center bg-black/30 transition-colors group-hover:bg-black/50">

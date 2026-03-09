@@ -7,6 +7,7 @@ import {
   getUserBadges,
   getRecentPostsByUser,
 } from "@/lib/queries/profiles";
+import Image from "next/image";
 import { BadgeDisplay } from "@/components/ui/badge-display";
 import { ProfileEditForm } from "@/components/ui/profile-edit-form";
 
@@ -64,9 +65,12 @@ const ProfilePage = async ({ params }: ProfilePageProps) => {
         {/* Avatar */}
         <div className="flex-shrink-0">
           {profile.avatar_url ? (
-            <img
+            <Image
               src={profile.avatar_url}
               alt={displayName}
+              width={96}
+              height={96}
+              unoptimized
               className="h-24 w-24 rounded-full object-cover ring-2 ring-white/10"
             />
           ) : (

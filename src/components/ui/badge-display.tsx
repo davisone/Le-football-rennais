@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Tables } from "@/types/database";
 
 interface BadgeDisplayProps {
@@ -23,10 +24,13 @@ export const BadgeDisplay = ({ badges }: BadgeDisplayProps) => {
           className="flex items-center gap-1.5 rounded-full border border-white/10 bg-gray-800 px-3 py-1"
         >
           {badge.icon_url ? (
-            <img
+            <Image
               src={badge.icon_url}
               alt=""
-              className="h-4 w-4 object-contain"
+              width={16}
+              height={16}
+              unoptimized
+              className="object-contain"
             />
           ) : (
             <span className="text-base">🏅</span>
