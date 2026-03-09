@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
+import { signOut } from "@/lib/actions/auth";
 
 interface NavLink {
   href: string;
@@ -14,11 +15,17 @@ interface SocialLink {
   icon: React.ReactNode;
 }
 
+interface UserData {
+  email: string;
+  displayName: string;
+}
+
 interface MobileNavProps {
   isOpen: boolean;
   onClose: () => void;
   navLinks: NavLink[];
   socialLinks: SocialLink[];
+  user?: UserData | null;
 }
 
 export const MobileNav = ({
@@ -26,6 +33,7 @@ export const MobileNav = ({
   onClose,
   navLinks,
   socialLinks,
+  user,
 }: MobileNavProps) => {
   /* Empêcher le scroll du body quand le menu est ouvert */
   useEffect(() => {
@@ -96,14 +104,31 @@ export const MobileNav = ({
         {/* Séparateur */}
         <div className="my-6 h-px bg-white/10" />
 
-        {/* Bouton connexion */}
-        <Link
-          href="/auth/connexion"
-          onClick={onClose}
-          className="rounded-md bg-[#E30613] px-4 py-3 text-center text-sm font-semibold text-white transition-colors hover:bg-[#c00510]"
-        >
-          Connexion
-        </Link>
+        {/* Bouton connexion ou déconnexion */}
+        {user ? (
+          <div className="flex flex-col gap-3">
+            <p className="truncate text-sm text-gray-400">
+              {user.displayName || user.email}
+            </p>
+            <form action={signOut}>
+              <button
+                type="submit"
+                onClick={onClose}
+                className="w-full rounded-md border border-white/10 px-4 py-3 text-center text-sm font-semibold text-gray-300 transition-colors hover:bg-white/5"
+              >
+                Déconnexion
+              </button>
+            </form>
+          </div>
+        ) : (
+          <Link
+            href="/auth/connexion"
+            onClick={onClose}
+            className="rounded-md bg-[#E30613] px-4 py-3 text-center text-sm font-semibold text-white transition-colors hover:bg-[#c00510]"
+          >
+            Connexion
+          </Link>
+        )}
 
         {/* Réseaux sociaux */}
         <div className="mt-auto flex items-center justify-center gap-5 pt-8">
