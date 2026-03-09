@@ -1,7 +1,17 @@
+import { Hero } from "@/components/sections/hero";
+import { LatestArticles } from "@/components/sections/latest-articles";
+import { LatestVideos } from "@/components/sections/latest-videos";
+import { NewsletterCta } from "@/components/sections/newsletter-cta";
+import { SocialFeed } from "@/components/sections/social-feed";
+
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center">
-      <h1 className="text-4xl font-bold">Le Football Rennais</h1>
-    </div>
+    <>
+      <Hero />
+      <LatestArticles />
+      <LatestVideos />
+      <NewsletterCta />
+      <SocialFeed />
+    </>
   );
 }
