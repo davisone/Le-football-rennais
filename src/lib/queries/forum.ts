@@ -81,6 +81,18 @@ export const getTopicBySlug = async (
   return data as ForumTopicWithCategory | null;
 };
 
+// Tous les topics pour la page de modération admin
+export const getAllTopics = async (): Promise<ForumTopicWithCategory[]> => {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("forum_topics")
+    .select(
+      "*, author:user_profiles(username, display_name, avatar_url), category:forum_categories(name, slug)"
+    )
+    .order("last_post_at", { ascending: false });
+  return (data as ForumTopicWithCategory[]) ?? [];
+};
+
 // Posts d'un topic avec les infos auteur, triés par date
 export const getPostsByTopic = async (
   topicId: string

@@ -170,6 +170,22 @@ export const togglePinTopic = async (
   return { error: null };
 };
 
+// Supprimer un topic (modérateur ou admin)
+export const deleteTopic = async (
+  topicId: string,
+  categorySlug: string
+): Promise<{ error: string } | void> => {
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from("forum_topics")
+    .delete()
+    .eq("id", topicId);
+  if (error) return { error: "Impossible de supprimer le sujet." };
+  revalidatePath(`/forum/${categorySlug}`);
+  revalidatePath("/admin/forum");
+  redirect(`/forum/${categorySlug}`);
+};
+
 // Verrouiller / déverrouiller un topic (modérateur ou admin)
 export const toggleLockTopic = async (
   topicId: string,

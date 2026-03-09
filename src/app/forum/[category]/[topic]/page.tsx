@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getTopicBySlug, getPostsByTopic } from "@/lib/queries/forum";
 import { TopicDiscussion } from "@/components/ui/topic-discussion";
+import { TopicModerationButtons } from "@/components/ui/topic-moderation-buttons";
 
 type TopicPageProps = {
   params: Promise<{ category: string; topic: string }>;
@@ -126,6 +127,22 @@ const TopicPage = async ({ params }: TopicPageProps) => {
           <span>{topic.view_count} vue{topic.view_count !== 1 ? "s" : ""}</span>
         </p>
       </div>
+
+      {/* Boutons de modération (admin/modérateur uniquement) */}
+      {(currentUserRole === "admin" || currentUserRole === "moderator") && (
+        <div className="mb-6 flex items-center gap-3 rounded-lg border border-white/10 bg-gray-900 px-4 py-3">
+          <span className="text-xs font-medium uppercase tracking-wide text-gray-500">
+            Modération
+          </span>
+          <TopicModerationButtons
+            topicId={topic.id}
+            topicSlug={topicSlug}
+            categorySlug={categorySlug}
+            isPinned={topic.is_pinned}
+            isLocked={topic.is_locked}
+          />
+        </div>
+      )}
 
       {/* Discussion (posts + formulaire réponse) avec Realtime */}
       <TopicDiscussion
