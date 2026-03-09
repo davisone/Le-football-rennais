@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { NewsletterForm } from "@/components/ui/newsletter-form";
 
 /* Liens de navigation */
 const navLinks = [
@@ -96,20 +97,9 @@ export const Footer = () => {
               Recevez les dernières actus SRFC directement dans votre boîte
               mail.
             </p>
-            <form action="#" className="mt-4 flex gap-2">
-              <input
-                type="email"
-                placeholder="votre@email.com"
-                aria-label="Adresse email pour la newsletter"
-                className="min-w-0 flex-1 rounded-md border border-white/10 bg-white/5 px-3 py-2 text-sm text-white placeholder:text-gray-500 focus:border-[#E30613] focus:outline-none focus:ring-1 focus:ring-[#E30613]"
-              />
-              <button
-                type="submit"
-                className="rounded-md bg-[#E30613] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#c00510]"
-              >
-                OK
-              </button>
-            </form>
+            <div className="mt-4">
+              <NewsletterForm />
+            </div>
           </div>
         </div>
 
