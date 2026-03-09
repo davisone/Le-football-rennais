@@ -1,1 +1,80 @@
 @import "tailwindcss";
+
+/* Styles pour l'éditeur TipTap (zone de rédaction admin) */
+.tiptap-editor {
+  min-height: 400px;
+  padding: 1rem;
+  color: #d1d5db;
+  outline: none;
+}
+.tiptap-editor p {
+  margin-bottom: 1rem;
+  line-height: 1.75;
+}
+.tiptap-editor h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+.tiptap-editor h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #fff;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+.tiptap-editor ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+.tiptap-editor ol {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+.tiptap-editor li {
+  margin-bottom: 0.25rem;
+}
+.tiptap-editor blockquote {
+  border-left: 4px solid rgba(227, 6, 19, 0.4);
+  padding-left: 1rem;
+  font-style: italic;
+  color: #9ca3af;
+  margin-bottom: 1rem;
+}
+.tiptap-editor code {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 0.25rem;
+  padding: 0.125rem 0.375rem;
+  font-size: 0.875rem;
+}
+.tiptap-editor pre {
+  background: #1f2937;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  overflow-x: auto;
+  margin-bottom: 1rem;
+}
+.tiptap-editor pre code {
+  background: transparent;
+  padding: 0;
+}
+.tiptap-editor a {
+  color: #e30613;
+  text-decoration: underline;
+}
+.tiptap-editor hr {
+  border-color: rgba(255, 255, 255, 0.1);
+  margin: 2rem 0;
+}
+/* Placeholder TipTap */
+.tiptap-editor p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  color: #6b7280;
+  pointer-events: none;
+  float: left;
+  height: 0;
+}
