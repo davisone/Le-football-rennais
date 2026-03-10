@@ -18,6 +18,7 @@ interface SocialLink {
 interface UserData {
   email: string;
   displayName: string;
+  username: string;
 }
 
 interface MobileNavProps {
@@ -110,6 +111,15 @@ export const MobileNav = ({
             <p className="truncate text-sm text-gray-400">
               {user.displayName || user.email}
             </p>
+            {user.username && (
+              <Link
+                href={`/profil/${user.username}`}
+                onClick={onClose}
+                className="rounded-md border border-white/10 px-4 py-3 text-center text-sm font-semibold text-gray-300 transition-colors hover:bg-white/5"
+              >
+                Mon profil
+              </Link>
+            )}
             <form action={signOut}>
               <button
                 type="submit"

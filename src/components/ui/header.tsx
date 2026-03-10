@@ -11,6 +11,7 @@ export const Header = async () => {
     ? {
         email: user.email ?? "",
         displayName: (user.user_metadata?.display_name as string) ?? (user.user_metadata?.username as string) ?? "",
+        username: (user.user_metadata?.username as string) ?? "",
       }
     : null;
 

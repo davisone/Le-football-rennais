@@ -5,7 +5,8 @@ import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://lefootballrennais.fr";
-const FROM_EMAIL = "Le Football Rennais <newsletter@lefootballrennais.fr>";
+const FROM_EMAIL =
+  process.env.RESEND_FROM_EMAIL ?? "Le Football Rennais <onboarding@resend.dev>";
 
 export const subscribeToNewsletter = async (
   formData: FormData

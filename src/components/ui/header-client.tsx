@@ -8,6 +8,7 @@ import { signOut } from "@/lib/actions/auth";
 interface UserData {
   email: string;
   displayName: string;
+  username: string;
 }
 
 interface HeaderClientProps {
@@ -124,10 +125,20 @@ export const HeaderClient = ({ user }: HeaderClientProps) => {
                   onClick={() => setIsUserMenuOpen(false)}
                   aria-hidden="true"
                 />
-                <div className="absolute right-0 z-50 mt-2 w-48 rounded-md border border-white/10 bg-gray-900 py-1 shadow-lg">
+                <div className="absolute right-0 z-50 mt-2 w-52 rounded-md border border-white/10 bg-gray-900 py-1 shadow-lg">
                   <p className="truncate border-b border-white/10 px-4 py-2 text-sm text-gray-400">
                     {user.displayName || user.email}
                   </p>
+                  {user.username && (
+                    <Link
+                      href={`/profil/${user.username}`}
+                      onClick={() => setIsUserMenuOpen(false)}
+                      className="block px-4 py-2 text-sm text-gray-300 transition-colors hover:bg-white/5 hover:text-white"
+                    >
+                      Mon profil
+                    </Link>
+                  )}
+                  <div className="my-1 border-t border-white/10" />
                   <form action={signOut}>
                     <button
                       type="submit"
