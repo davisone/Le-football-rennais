@@ -33,7 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr">
-      <body className="antialiased">
+      <body className="bg-gray-950 antialiased">
         <Header />
         <main className="min-h-screen">{children}</main>
         <Footer />

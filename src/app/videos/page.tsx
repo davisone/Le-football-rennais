@@ -18,7 +18,8 @@ const VideosPage = async () => {
   const videos = await getLatestVideos(12);
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
+    <div className="px-4 py-12 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl">
       <div className="mb-10">
         <h1 className="text-3xl font-bold text-white sm:text-4xl">Vidéos</h1>
         <p className="mt-2 text-gray-400">
@@ -60,6 +61,7 @@ const VideosPage = async () => {
         </div>
         <TikTokSection />
       </section>
+      </div>
     </div>
   );
 };
